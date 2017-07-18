@@ -43,5 +43,16 @@
 			<version>${alaska.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.jee.alaska</groupId>
+			<artifactId>alaska-alibaba</artifactId>
+			<version>${alaska.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 </project>
