@@ -31,11 +31,22 @@ public class AlaskaConfiguration {
 		return new DefaultHttpClientHelper();
 	}
 	
-	@Bean
-	@ConditionalOnProperty(prefix = "alaska.alipay", name = "partner")
-	@ConditionalOnMissingBean
-	public AlipayService alipayService(){
-		return new AlipayServiceImpl(properties.getAlipay().getPartner(), properties.getAlipay().getKey());
+	@ConditionalOnClass(name = "io.jee.alaska.alibaba.alipay.AlipayService")
+	static class AlipayConfiguration{
+		
+		private AlaskaProperties properties;
+		
+		public AlipayConfiguration(AlaskaProperties properties) {
+			this.properties = properties;
+		}
+		
+		@Bean
+		@ConditionalOnProperty(prefix = "alaska.alipay", name = "partner")
+		@ConditionalOnMissingBean
+		public AlipayService alipayService(){
+			return new AlipayServiceImpl(properties.getAlipay().getPartner(), properties.getAlipay().getKey());
+		}
+		
 	}
 	
 	@Bean
