@@ -1,15 +1,5 @@
 {"properties": [
   {
-    "name": "alaska.alipay.partner",
-    "type": "java.lang.String",
-    "description": "A description for 'alaska.alipay.partner'"
-  },
-  {
-    "name": "alaska.alipay.key",
-    "type": "java.lang.String",
-    "description": "支付宝支付的key值。"
-  },
-  {
     "name": "alaska.mail.personal",
     "type": "java.lang.String",
     "description": "A description for 'alaska.mail.personal'"

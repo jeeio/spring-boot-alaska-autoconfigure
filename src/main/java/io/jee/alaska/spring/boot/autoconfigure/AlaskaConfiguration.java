@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import io.jee.alaska.alibaba.alipay.AlipayService;
 import io.jee.alaska.alibaba.alipay.AlipayServiceImpl;
+import io.jee.alaska.alibaba.aliyun.AliyunSmsHandler;
 import io.jee.alaska.email.EmailSenderHandler;
 import io.jee.alaska.email.SimpleEmailSenderHandler;
 import io.jee.alaska.httpclient.DefaultHttpClientHelper;
@@ -41,10 +42,28 @@ public class AlaskaConfiguration {
 		}
 		
 		@Bean
-		@ConditionalOnProperty(prefix = "alaska.alipay", name = "partner")
+		@ConditionalOnProperty(prefix = "alaska.alipay", name="app-id")
 		@ConditionalOnMissingBean
 		public AlipayService alipayService(){
-			return new AlipayServiceImpl(properties.getAlipay().getPartner(), properties.getAlipay().getKey());
+			return new AlipayServiceImpl(properties.getAlipay().getAppId(), properties.getAlipay().getMerchantPrivateKey(), properties.getAlipay().getAlipayPublicKey(), properties.getAlipay().isSandbox());
+		}
+		
+	}
+	
+	@ConditionalOnClass(name = "io.jee.alaska.alibaba.aliyun.AliyunSmsHandler")
+	static class AliyunSmsConfiguration{
+		
+		private AlaskaProperties properties;
+		
+		public AliyunSmsConfiguration(AlaskaProperties properties) {
+			this.properties = properties;
+		}
+		
+		@Bean
+		@ConditionalOnProperty(prefix = "alaska.aliyun", name="key-id")
+		@ConditionalOnMissingBean
+		public AliyunSmsHandler aliyunSmsHandler(){
+			return new AliyunSmsHandler(properties.getAliyun().getKeyId(), properties.getAliyun().getKeySecret(), properties.getAliyun().getSignName());
 		}
 		
 	}
