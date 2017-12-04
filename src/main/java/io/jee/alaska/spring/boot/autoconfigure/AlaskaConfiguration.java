@@ -19,12 +19,6 @@ import io.jee.alaska.httpclient.HttpClientHelper;
 @EnableConfigurationProperties(AlaskaProperties.class)
 public class AlaskaConfiguration {
 	
-	private AlaskaProperties properties;
-	
-	public AlaskaConfiguration(AlaskaProperties properties) {
-		this.properties = properties;
-	}
-
 	@Bean
 	@ConditionalOnClass(HttpClientHelper.class)
 	@ConditionalOnMissingBean
@@ -63,16 +57,19 @@ public class AlaskaConfiguration {
 		@ConditionalOnProperty(prefix = "alaska.aliyun", name="key-id")
 		@ConditionalOnMissingBean
 		public AliyunSmsHandler aliyunSmsHandler(){
-			return new AliyunSmsHandler(properties.getAliyun().getKeyId(), properties.getAliyun().getKeySecret(), properties.getAliyun().getSignName());
+			return new AliyunSmsHandler(properties.getAliyun().getKeyId(), properties.getAliyun().getKeySecret());
 		}
 		
 	}
 	
-	@Bean
-	@ConditionalOnProperty(prefix = "alaska.mail", name = "personal")
-	@ConditionalOnMissingBean
-	public EmailSenderHandler emailSenderHandler(){
-		return new SimpleEmailSenderHandler(properties.getMail().getPersonal());
+	@ConditionalOnClass(name = {"javax.mail.internet.MimeMessage","org.springframework.mail.javamail.JavaMailSender"})
+	static class EmailConfiguration{
+		
+		@Bean
+		@ConditionalOnMissingBean
+		public EmailSenderHandler emailSenderHandler(){
+			return new SimpleEmailSenderHandler();
+		}
 	}
 
 }

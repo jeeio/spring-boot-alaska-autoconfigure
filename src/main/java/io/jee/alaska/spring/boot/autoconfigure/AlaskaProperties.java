@@ -6,8 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class AlaskaProperties {
 	
 	private Alipay alipay = new Alipay();
-	private Mail mail = new Mail();
 	private Aliyun aliyun = new Aliyun();
+	private String personal;
 	
 	public Alipay getAlipay() {
 		return alipay;
@@ -17,20 +17,20 @@ public class AlaskaProperties {
 		this.alipay = alipay;
 	}
 	
-	public Mail getMail() {
-		return mail;
-	}
-
-	public void setMail(Mail mail) {
-		this.mail = mail;
-	}
-	
 	public Aliyun getAliyun() {
 		return aliyun;
 	}
 
 	public void setAliyun(Aliyun aliyun) {
 		this.aliyun = aliyun;
+	}
+	
+	public String getPersonal() {
+		return personal;
+	}
+
+	public void setPersonal(String personal) {
+		this.personal = personal;
 	}
 
 	public class Alipay {
@@ -72,23 +72,9 @@ public class AlaskaProperties {
 		
 	}
 	
-	public class Mail {
-		
-		private String personal;
-
-		public String getPersonal() {
-			return personal;
-		}
-
-		public void setPersonal(String personal) {
-			this.personal = personal;
-		}
-		
-	}
-	
 	public class Aliyun {
 		
-		private String keyId, keySecret, signName;
+		private String keyId, keySecret;
 
 		public String getKeyId() {
 			return keyId;
@@ -104,14 +90,6 @@ public class AlaskaProperties {
 
 		public void setKeySecret(String keySecret) {
 			this.keySecret = keySecret;
-		}
-
-		public String getSignName() {
-			return signName;
-		}
-
-		public void setSignName(String signName) {
-			this.signName = signName;
 		}
 	}
 	
