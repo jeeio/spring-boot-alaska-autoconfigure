@@ -7,6 +7,9 @@ public class AlaskaProperties {
 	
 	private Alipay alipay = new Alipay();
 	private Aliyun aliyun = new Aliyun();
+	/**
+	 * 签名（邮件、短信等）
+	 */
 	private String personal;
 	
 	public Alipay getAlipay() {
